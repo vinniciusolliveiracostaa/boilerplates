@@ -2,7 +2,7 @@ import * as p from "drizzle-orm/pg-core";
 import { users } from "../../user/user.schema.js";
 
 export const sessions = p.pgTable("sessions", {
-	id: p.uuid().primaryKey(),
+	id: p.uuid("id").primaryKey(),
 
 	userId: p
 		.uuid("user_id")
@@ -15,5 +15,9 @@ export const sessions = p.pgTable("sessions", {
 	userAgent: p.text("user_agent"),
 
 	createdAt: p.timestamp("created_at").notNull().defaultNow(),
-	updatedAt: p.timestamp("updated_at").notNull().defaultNow(),
+	updatedAt: p
+		.timestamp("updated_at")
+		.notNull()
+		.defaultNow()
+		.$onUpdate(() => new Date()),
 });

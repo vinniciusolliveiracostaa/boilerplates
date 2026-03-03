@@ -13,6 +13,10 @@ export const users = p.pgTable("users", {
 	banReason: p.text("ban_reason"),
 
 	createdAt: p.timestamp("created_at").notNull().defaultNow(),
-	updatedAt: p.timestamp("updated_at").notNull().defaultNow(),
+	updatedAt: p
+		.timestamp("updated_at")
+		.notNull()
+		.defaultNow()
+		.$onUpdate(() => new Date()),
 	deletedAt: p.timestamp("deleted_at"),
 });

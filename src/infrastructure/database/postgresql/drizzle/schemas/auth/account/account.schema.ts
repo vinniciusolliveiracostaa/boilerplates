@@ -2,7 +2,7 @@ import * as p from "drizzle-orm/pg-core";
 import { users } from "../../user/user.schema.js";
 
 export const accounts = p.pgTable("accounts", {
-	id: p.uuid().primaryKey(),
+	id: p.uuid("id").primaryKey(),
 	providerId: p.text("provider_id").notNull(),
 	accountId: p.text("account_id").notNull(),
 	userId: p
@@ -30,5 +30,9 @@ export const accounts = p.pgTable("accounts", {
 	password: p.text("password"),
 
 	createdAt: p.timestamp("created_at").notNull().defaultNow(),
-	updatedAt: p.timestamp("updated_at").notNull().defaultNow(),
+	updatedAt: p
+		.timestamp("updated_at")
+		.notNull()
+		.defaultNow()
+		.$onUpdate(() => new Date()),
 });
