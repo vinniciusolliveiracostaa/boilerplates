@@ -28,13 +28,24 @@ const envSchema = z.object({
 		.string()
 		.min(1, "OAUTH_GOOGLE_REDIRECT_URI is required"),
 
-	// Session
-	SESSION_SECRET: z.string().min(1, "SESSION_SECRET is required"),
-	SESSION_MAX_AGE: z.coerce.number().default(24 * 60 * 60), // 24 hours
-	SESSION_COOKIE_NAME: z.string().default("auth_session"),
-	SESSION_COOKIE_SECURE: z.coerce.boolean().default(false),
-	SESSION_COOKIE_HTTP_ONLY: z.coerce.boolean().default(true),
-	SESSION_COOKIE_SAME_SITE: z.enum(["lax", "strict", "none"]).default("lax"),
+	// JWT (Access Token — stateless, curto)
+	JWT_SECRET: z
+		.string()
+		.min(32, "JWT_SECRET deve ter pelo menos 32 caracteres"),
+	JWT_EXPIRES_IN: z.string().default("15m"),
+
+	// Cookie (assina o cookie httpOnly que carrega o session token)
+	COOKIE_SECRET: z
+		.string()
+		.min(32, "COOKIE_SECRET deve ter pelo menos 32 caracteres"),
+	COOKIE_NAME: z.string().default("auth_session"),
+	COOKIE_SECURE: z.coerce.boolean().default(false),
+	COOKIE_HTTP_ONLY: z.coerce.boolean().default(true),
+	COOKIE_SAME_SITE: z.enum(["lax", "strict", "none"]).default("lax"),
+
+	// Session (server-side no banco — longa, sliding window)
+	SESSION_EXPIRATION_DAYS: z.coerce.number().default(30),
+	SESSION_REFRESH_THRESHOLD_DAYS: z.coerce.number().default(7),
 
 	// CORS
 	CORS_ORIGINS: z

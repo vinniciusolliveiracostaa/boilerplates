@@ -1,8 +1,8 @@
 import { AsyncLocalStorage } from "node:async_hooks";
-import type { NodePgDatabase } from "drizzle-orm/node-postgres";
+import type { BunSQLDatabase } from "drizzle-orm/bun-sql/postgres/driver";
 import type { IUnitOfWork } from "../../../../core/contracts/unit-of-work";
 
-export type DrizzleClient = NodePgDatabase<Record<string, never>>;
+export type DrizzleClient = BunSQLDatabase<Record<string, never>>;
 
 const txStorage = new AsyncLocalStorage<DrizzleClient>();
 

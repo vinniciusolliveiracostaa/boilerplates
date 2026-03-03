@@ -7,6 +7,7 @@ import {
 import { AppModule } from "./modules/app.module.ts";
 import { env } from "./shared/config/config.ts";
 import awilixPlugin from "./shared/plugins/awilix.plugin.ts";
+import { corsPlugin } from "./shared/plugins/cors.plugin.ts";
 import loggerPlugin from "./shared/plugins/logger.plugin.ts";
 import { redisPlugin } from "./shared/plugins/redis.plugin.ts";
 
@@ -52,7 +53,7 @@ export async function buildApp() {
 	// ============================
 	// 3. SEGURANÇA (CORS → Helmet → Rate Limit)
 	// ============================
-	// await app.register(corsPlugin);
+	await app.register(corsPlugin);
 	// await app.register(helmetPlugin);
 	// await app.register(rateLimitPlugin);
 
