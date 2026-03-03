@@ -2,9 +2,7 @@
   "version": "8",
   "dialect": "postgres",
   "id": "797595df-2c37-445d-adf1-9fc449728abc",
-  "prevIds": [
-    "00000000-0000-0000-0000-000000000000"
-  ],
+  "prevIds": ["00000000-0000-0000-0000-000000000000"],
   "ddl": [
     {
       "isRlsEnabled": false,
@@ -487,14 +485,10 @@
     },
     {
       "nameExplicit": false,
-      "columns": [
-        "user_id"
-      ],
+      "columns": ["user_id"],
       "schemaTo": "public",
       "tableTo": "users",
-      "columnsTo": [
-        "id"
-      ],
+      "columnsTo": ["id"],
       "onUpdate": "NO ACTION",
       "onDelete": "CASCADE",
       "name": "accounts_user_id_users_id_fkey",
@@ -504,14 +498,10 @@
     },
     {
       "nameExplicit": false,
-      "columns": [
-        "user_id"
-      ],
+      "columns": ["user_id"],
       "schemaTo": "public",
       "tableTo": "users",
-      "columnsTo": [
-        "id"
-      ],
+      "columnsTo": ["id"],
       "onUpdate": "NO ACTION",
       "onDelete": "CASCADE",
       "name": "sessions_user_id_users_id_fkey",
@@ -520,9 +510,7 @@
       "table": "sessions"
     },
     {
-      "columns": [
-        "id"
-      ],
+      "columns": ["id"],
       "nameExplicit": false,
       "name": "accounts_pkey",
       "schema": "public",
@@ -530,9 +518,7 @@
       "entityType": "pks"
     },
     {
-      "columns": [
-        "id"
-      ],
+      "columns": ["id"],
       "nameExplicit": false,
       "name": "sessions_pkey",
       "schema": "public",
@@ -540,9 +526,7 @@
       "entityType": "pks"
     },
     {
-      "columns": [
-        "id"
-      ],
+      "columns": ["id"],
       "nameExplicit": false,
       "name": "users_pkey",
       "schema": "public",
@@ -550,9 +534,7 @@
       "entityType": "pks"
     },
     {
-      "columns": [
-        "id"
-      ],
+      "columns": ["id"],
       "nameExplicit": false,
       "name": "verifications_pkey",
       "schema": "public",

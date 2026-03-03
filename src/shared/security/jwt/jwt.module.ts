@@ -1,17 +1,21 @@
-import { asFunction, Lifetime } from "awilix";
+import { asValue, type InferCradleFromResolvers } from "awilix";
 import type { FastifyInstance } from "fastify";
-import { env } from "../../config/config";
-import type { IModule } from "../../contracts/module.contract";
-import { JoseProvider } from "./jose.provider";
+import { env } from "../../config/config.ts";
+import type { IModule } from "../../contracts/module.contract.ts";
+import { JoseProvider } from "./jose/jose.provider.ts";
+import type { IJwtProvider } from "./jose/jwt.contract.ts";
+
+const provider = new JoseProvider(env.JWT_SECRET);
+
+const jwtResolvers = {
+  jwtProvider: asValue<IJwtProvider>(provider),
+} as const;
+
+export type JwtCradle = InferCradleFromResolvers<typeof jwtResolvers>;
 
 export class JwtModule implements IModule {
-	async register(app: FastifyInstance): Promise<void> {
-		app.diContainer.register({
-			jwtProvider: asFunction(
-				() => new JoseProvider(env.JWT_SECRET),
-				{ lifetime: Lifetime.SINGLETON }, // Stateless, pode ser singleton
-			),
-		});
-		app.log.info("✅ JwtModule registrado");
-	}
+  async register(app: FastifyInstance): Promise<void> {
+    app.diContainer.register(jwtResolvers);
+    app.log.info("✅ JwtModule registrado");
+  }
 }
