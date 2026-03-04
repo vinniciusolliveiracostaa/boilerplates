@@ -1,3 +1,4 @@
+import { eq } from "drizzle-orm";
 import * as p from "drizzle-orm/pg-core";
 import { users } from "../../user/user.schema.js";
 
@@ -37,9 +38,10 @@ export const accounts = p.pgTable(
       .notNull()
       .defaultNow()
       .$onUpdate(() => new Date()),
+    deletedAt: p.timestamp("deleted_at"),
   },
   (t) => [
-    p.index("accounts_user_id_idx").on(t.userId),
-    p.index("accounts_provider_idx").on(t.providerId, t.accountId),
+    p.index("accounts_user_id_idx").on(t.userId).where(eq(t.deletedAt, null)),
+    p.index("accounts_provider_idx").on(t.providerId, t.accountId).where(eq(t.deletedAt, null)),
   ],
 );

@@ -5,6 +5,7 @@ import { AuthorizationModule } from "../infrastructure/auth/authorization.module
 import { DatabaseModule } from "../infrastructure/database/database.module.ts";
 import type { IModule } from "../shared/contracts/module.contract.ts";
 import { JwtModule } from "../shared/security/jwt/jwt.module.ts";
+import { UserModule } from "./user/user.module.ts";
 
 export class AppModule implements IModule {
   private readonly infraModules: IModule[];
@@ -13,7 +14,7 @@ export class AppModule implements IModule {
   constructor() {
     this.infraModules = [new DatabaseModule(), new JwtModule(), new AuthorizationModule()];
 
-    this.featureModules = [];
+    this.featureModules = [new UserModule()];
   }
 
   async register(app: FastifyInstance): Promise<void> {
